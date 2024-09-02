@@ -1,3 +1,4 @@
 # student-information-system
 
-- mvc architecture
+- A Student Information System is a tool for managing educational data. It allows users to add, view, update, and delete information about courses, instructors, students, departments, faculties, grades, and course enrollments.
+- Using ASP.Net MVC Framework

@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "AddAuthorizationType";
+}
+
+@section title { Add Authorization Type }
+@section breadcrumb{ <a href="/User/AddAuthorizationType">Add</a>}
+
+@model StundetInformation.Models.AuthorizationType
+
+<!-- general form elements -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    @using (Html.BeginForm("AddAuthorizationType", "User", FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Type</label>
+                <input type="text" class="form-control" name="type" placeholder="Enter a new authorization type">
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" id="studFormSubmit">Submit</button>
+        </div>
+    }
+
+</div>
+<!-- /.card -->

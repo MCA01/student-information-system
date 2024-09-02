@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "AddDepartment";
+
+    int fID = Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]);
+}
+
+@section title { Add Department }
+@section breadcrumb{ <a href="/Department/AddDepartment">Add Department</a>}
+
+@model StundetInformation.Models.Department
+
+<!-- general form elements -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    @using (Html.BeginForm("AddDepartment", "Department", FormMethod.Post))
+    {
+        @Html.HiddenFor(x=>x.facultyID, new {Value = fID })
+
+        <div class="card-body">
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="text" class="form-control" name="name" placeholder="Enter department's name">
+            </div>
+
+            @*<div class="form-group">
+                    <label for="exampleInputEmail1">Faculty</label>
+                    @Html.DropDownList("facultyID", ViewBag.FacultyList as SelectList, "Select", new { @class = "custom-select" })
+                </div>*@
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" id="studFormSubmit">Submit</button>
+        </div>
+    }
+
+</div>
+<!-- /.card -->

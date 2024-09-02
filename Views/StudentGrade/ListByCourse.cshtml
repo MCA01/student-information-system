@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "ListByCourse";
+}
+
+@section title { Grades List By Course }
+@section breadcrumb{ <a href="/StudentGrade/ListByCourse">ListByCourse</a>}
+
+@model List<StundetInformation.Models.StudentGrade>
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        @if (Model.Count == 0)
+                        {
+                            <h3 class="float-left">No Grades Found</h3>
+                        }
+                        else
+                        {
+                            <h3 class="float-left">@Model[0].Course.courseName</h3>
+                        }
+                        <a class="btn btn-primary float-right ml-3 mr-3" href="/StudentGrade/AddGradeToCourse/@ViewBag.CourseID" role="button">Add Grade</a>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="gradesList" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Grade</th>
+                                    <th>Grade Weight</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var grade in Model)
+                                {
+                                    <tr>
+                                        <td>@grade.Student.firstName @grade.Student.lastName</td>
+                                        <td>@grade.gradeValue</td>
+                                        <td>@grade.gradeWeight</td>
+                                        <td>@grade.date</td>
+                                        <td>
+                                            <a href="/StudentGrade/EditGradeFromCourse/@grade.id"><i class="fa-solid fa-pen-to-square ml-3 mr-3"></i></a>
+                                            <a href="/StudentGrade/RemoveGradeFromCourse/@grade.id"><i class="fa-solid fa-trash ml-3 mr-3"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Grade</th>
+                                    <th>Grade Weight</th>
+                                    <th>Date</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+

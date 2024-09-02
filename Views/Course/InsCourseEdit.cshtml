@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "InsCourseEdit";
+}
+
+
+@section title { Instructor's Course Edit}
+@section breadcrumb{ <a href="/Course/InsCourseEdit">Instructor's Course Edit</a>}
+
+@model StundetInformation.Models.Course
+
+
+<!-- general form elements -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    @using (Html.BeginForm("InsCourseEdit", "Course", FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Course Code</label>
+                <input type="text" class="form-control" name="courseCode" value=@Model.courseCode>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Course Name</label>
+                <input type="text" class="form-control" name="courseName" value=@Model.courseName>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Description</label>
+                <input type="text" class="form-control" name="description" value=@Model.description>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">ECTS</label>
+                <input type="number" class="form-control" name="ects" value=@Model.ects>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Weekly Hours</label>
+                <input type="number" class="form-control" name="weeklyHours" value=@Model.weeklyHours>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Semester</label>
+                @Html.DropDownList("semesterID", ViewBag.SemesterList as SelectList, "Select", new { @class = "custom-select" })
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" id="studFormSubmit">Submit</button>
+        </div>
+    }
+
+</div>
+<!-- /.card -->

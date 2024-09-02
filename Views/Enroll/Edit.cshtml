@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+@section title { Edit Enrollment }
+@section breadcrumb{ <a href="/Enroll/Edit">Edit</a>}
+
+@model StundetInformation.Models.Enrolls
+
+<!-- general form elements -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    @using (Html.BeginForm("Edit", "Enroll", FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Student ID</label>
+                <input type="number" class="form-control" name="studentID" value=@Model.studentID>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Course</label>
+                @Html.DropDownList("courseID", ViewBag.CourseList as SelectList, "Select", new { @class = "custom-select" })
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Status</label>
+                <select class="custom-select custom-select mb-3" name="status">
+                    @if (Model.status.Equals("Enrolled") == true)
+                    {
+                        <option selected value="Enrolled">Enrolled</option>
+                        <option value="Dropped">Dropped</option>
+                        <option value="Failed">Failed</option>
+                    }
+                    else if (Model.status.Equals("Dropped") == true)
+                    {
+                        <option value="Enrolled">Enrolled</option>
+                        <option selected value="Dropped">Dropped</option>
+                        <option value="Failed">Failed</option>
+                    }
+
+                    else
+                    {
+                        <option value="Enrolled">Enrolled</option>
+                        <option value="Dropped">Dropped</option>
+                        <option selected value="Failed">Failed</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" id="studFormSubmit">Submit</button>
+        </div>
+    }
+
+</div>
+<!-- /.card -->

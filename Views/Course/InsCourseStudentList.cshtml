@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "InsCourseStudentList";
+}
+
+@section title { Instructor's Courses Panel }
+@section breadcrumb{ <a href="/Course/InsCourseStudentList">Instructor's Course's Student List Panel</a>}
+
+@model List<StundetInformation.Models.Enrolls>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        @if (Model.Count > 0){
+                            int courseId = (int)Model[0].courseID;
+                            StudentInformationContext db = new StudentInformationContext();
+                            var course = db.Course.FirstOrDefault(x => x.id == courseId);
+                            var courseName = course.courseName;
+                            <h3 class="float-left">Enrolled students to @courseName</h3>
+                        }
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="coursesList" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Student ID</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var enroll in Model)
+                                {
+                                    <tr>
+                                        <td>@enroll.Student.firstName @enroll.Student.lastName</td>
+                                        <td>@enroll.studentID</td>
+                                        <td>@enroll.status</td>
+                                        <td>
+                                            <a href="/Course/InsCourseStudentGrades?courseId=@enroll.courseID&studentId=@enroll.studentID">
+                                                <i class="fa-solid fa-list-check mr-3"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Student ID</th>
+                                    <th>Status</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+

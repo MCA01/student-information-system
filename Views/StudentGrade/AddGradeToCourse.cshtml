@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "AddGradeToCourse";
+}
+
+@section title { Add Grade to Course }
+@section breadcrumb{ <a href="/StudentGrade/AddGradeToCourse">Add</a>}
+
+@model StundetInformation.Models.StudentGrade
+
+
+<!-- general form elements -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    @using (Html.BeginForm("AddGradeToCourse", "StudentGrade", FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="form-group m-auto">
+                <label for="exampleInputEmail1">Student</label>
+                @Html.DropDownListFor(m => m.studentID, ViewBag.StudentList as SelectList, "Select", new { @class = "custom-select" })
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Grade</label>
+                <input type="number" class="form-control" name="gradeValue" placeholder="Enter student's grade">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Grade Weight</label>
+                <input type="number" class="form-control" name="gradeWeight" min="0" max="10" placeholder="Enter grade's weight out of ten (ex. 3 -> 3/10)">
+            </div>
+
+            @Html.HiddenFor(x => x.courseID)
+
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" id="studFormSubmit">Submit</button>
+        </div>
+    }
+
+</div>
+<!-- /.card -->

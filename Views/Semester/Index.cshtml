@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "SemestersPanel";
+}
+
+@section title { Semesters Panel }
+@section breadcrumb{ <a href="/Semester/Index">SemestersPanel</a>}
+
+@model List<StundetInformation.Models.Semester>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="btn btn-primary float-right" href="/Semester/Add" role="button">Add Semester</a>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="semestersList" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var semester in Model)
+                                {
+                                    <tr>
+                                        <td>@semester.name</td>
+                                        <td>@semester.startDate</td>
+                                        <td>@semester.endDate</td>
+                                        <td>
+                                            <a href="/Semester/Edit/@semester.id"><i class="fa-solid fa-pen-to-square mr-3"></i></a>
+                                            <a href="/Semester/Remove/@semester.id"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+

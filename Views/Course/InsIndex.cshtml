@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "InsIndex";
+}
+
+@section title { Instructor's Courses Panel }
+@section breadcrumb{ <a href="/Course/InsIndex">Instructor's Courses Panel</a>}
+
+@model List<StundetInformation.Models.Course>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        @{
+                            int instructorId = (int)Model[0].instructorId;
+                            StudentInformationContext db = new StudentInformationContext();
+                            var instructor = db.User.FirstOrDefault(x => x.id == instructorId);
+                            var instructorName = instructor.firstName + " " + instructor.lastName;
+                            <h3 class="float-left">@instructorName's Courses</h3>
+                        }
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="insCoursesList" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Description</th>
+                                    <th>ECTS</th>
+                                    <th>Weekly Hours</th>
+                                    <th>Semester</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var course in Model)
+                                {
+                                    <tr>
+                                        <td>@course.courseCode</td>
+                                        <td>@course.courseName</td>
+                                        <td>@course.description</td>
+                                        <td>@course.ects</td>
+                                        <td>@course.weeklyHours</td>
+                                        <td>@course.Semester.name @course.Semester.startDate - @course.Semester.endDate</td>
+                                        <td>@course.Department.name</td>
+                                        <td>
+                                            <a href="/Course/InsCourseStudentList/@course.id"><i class="fa-solid fa-people-group mr-3"></i></a>
+                                            <a href="/Course/InsCourseGradeList/@course.instructorId"><i class="fa-solid fa-list-check mr-3"></i></a>
+                                            <a href="/Course/InsCourseEdit/@course.instructorId"><i class="fa-solid fa-pen-to-square mr-3"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Description</th>
+                                    <th>ECTS</th>
+                                    <th>Weekly Hours</th>
+                                    <th>Semester</th>
+                                    <th>Department</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>

@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "EditUser";
+}
+
+@section title { Edit User }
+@section breadcrumb{ <a href="/User/Edit">Edit</a>}
+
+@model StundetInformation.Models.User
+
+<!-- general form elements -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    @using (Html.BeginForm("Edit", "User", FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">First Name</label>
+                <input type="text" class="form-control" name="firstName" value="@Model.firstName">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Last Name</label>
+                <input type="text" class="form-control" name="lastName" value="@Model.lastName">
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="exampleInputEmail1">Gender</label>
+                    <select class="custom-select custom-select mb-3" name="gender">
+                        @if (Model.gender.Equals("Male") == true)
+                        {
+                            <option selected value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        }
+                        else
+                        {
+                            <option value="Male">Male</option>
+                            <option selected value="Female">Female</option>
+                        }
+
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="exampleInputEmail1">Date of Birth</label>
+                    <input type="date" class="form-control" name="dateOfBirth" value="@Model.dateOfBirth">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Phone</label>
+                <input type="text" class="form-control" name="phone" value="@Model.phone">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <input type="email" class="form-control" name="email" value="@Model.email">
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Hire Date</label>
+                <input type="date" class="form-control" name="hireDate" value="@Model.hireDate">
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>User's Faculty</label>
+                        @Html.DropDownList("faculties", ViewBag.Faculty as SelectList, "Select", new { @class = "custom-select" })
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>User's Department</label>
+                        @Html.DropDownList("departmentID", Enumerable.Empty<SelectListItem>(), "Select", new { @class = "custom-select" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" id="studFormSubmit">Submit</button>
+        </div>
+    }
+
+</div>
+<!-- /.card -->
+
+
+@section js {
+
+    <script type="text/javascript">
+
+        //tüm sayfa yüklendikten sonra jquery scriptini çalıştırdığımızdan emin oluyoruz
+        $(document).ready(function () {
+
+        //id'si faculties olan tagi select ediyoruz
+        $('#faculties').change(function () {
+
+                //departmentID id'li taglerin içindeki değerleri siliyoruz
+                $('#departmentID').empty();
+
+                //faculties id'li tagin değerini fID değişkenine atıyoruz
+                var fID = $(this).val();
+
+                /*
+                    fID null değilse db'e post request atıyoruz request başarılı olursa
+                    gelen departmanları value'su id içeriğindeki text name olacak şekilde
+                    <option/> taginin içine koyuyoruz
+                */
+                if (fID != null && fID != '') {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetDepartments", "Student")',
+                        data: { id: fID },
+                        success: function (departments) {
+                            $.each(departments, function (index, department) {
+                                $('#departmentID').append($('<option/>', {
+                                    value: department.id,
+                                    text: department.name
+                                }));
+                            });
+                        },
+                        error: function () {
+                            /*Bu metod ile Ajax işlemi başarısız
+                            olursa eğer hata mesajı verebiliyoruz.*/
+                            alert("Hata");
+                        },
+                        beforeSend: function () {
+                            /*Burada ise Form Post edilmeden önce
+                            işlemler yapılabilir.Örnek olarak Loading, yükleniyor vs..*/
+                        },
+                        complete: function () {
+                            /*Burada ise Form Post edildikten sonra
+                            işlemler yapılabilir.Örnek olarak yükleme tamamlandı vs..*/
+                        }
+                    });
+                }
+        });
+    });
+    </script>
+}
+
+

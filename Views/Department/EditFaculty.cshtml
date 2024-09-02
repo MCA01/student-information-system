@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "EditFaculty";
+}
+
+@section title { Edit Faculty }
+@section breadcrumb{ <a href="/Department/EditFaculty">Edit Faculty</a>}
+
+@model StundetInformation.Models.Department
+
+<!-- general form elements -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    @using (Html.BeginForm("EditFaculty", "Department", FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="text" class="form-control" name="name" value=@Model.name>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" id="studFormSubmit">Submit</button>
+        </div>
+    }
+
+</div>
+<!-- /.card -->

@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "AddAuthorization";
+}
+
+@section title { Add Authorization }
+@section breadcrumb{ <a href="/User/AddAuthorization">Add</a>}
+
+@model StundetInformation.Models.Authorizations
+
+<!-- general form elements -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    @using (Html.BeginForm("AddAuthorization", "User", FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">User</label>
+                @Html.DropDownList("userID", ViewBag.UserList as SelectList, "Select", new { @class = "custom-select" })
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Authorization Type</label>
+                @Html.DropDownList("authorizationID", ViewBag.AuthTypes as SelectList, "Select", new { @class = "custom-select" })
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" id="studFormSubmit">Submit</button>
+        </div>
+    }
+
+</div>
+<!-- /.card -->

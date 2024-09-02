@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "CoursesPanel";
+}
+@section title { Courses Panel }
+@section breadcrumb{ <a href="/Course/Index">CoursesPanel</a>}
+
+@model List<StundetInformation.Models.Course>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        
+                        <a class="btn btn-primary float-right" href="/Course/Add" role="button">Add Course</a>
+                    
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="coursesList" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Description</th>
+                                    <th>ECTS</th>
+                                    <th>Weekly Hours</th>
+                                    <th>Instructor</th>
+                                    <th>Semester</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var course in Model)
+                                {
+                                    <tr>
+                                        <td>@course.courseCode</td>
+                                        <td>@course.courseName</td>
+                                        <td>@course.description</td>
+                                        <td>@course.ects</td>
+                                        <td>@course.weeklyHours</td>
+                                        <td>@course.instructorId</td>
+                                        <td>@course.semesterID</td>
+                                        <td>@course.Department.name</td>
+                                        <td>
+                                            <a href="/Course/Edit/@course.id"><i class="fa-solid fa-pen-to-square mr-3"></i></a>
+                                            <a href="/Course/Remove/@course.id"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Description</th>
+                                    <th>ECTS</th>
+                                    <th>Weekly Hours</th>
+                                    <th>Instructor</th>
+                                    <th>Semester</th>
+                                    <th>Department</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+
+
+
+
+
+
+

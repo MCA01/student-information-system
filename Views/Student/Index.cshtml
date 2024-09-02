@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "StudentsPanel";
+}
+
+@section title { Students Panel }
+@section breadcrumb{ <a href="/Student/Index">StudentsPanel</a>}
+
+@model List<StundetInformation.Models.Student>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="btn btn-primary float-right" href="/Student/Add" role="button">Add Student</a>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="studentsList" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Gender</th>
+                                    <th>Date of Birth</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>GPA</th>
+                                    <th>Registration Date</th>
+                                    <th>Registration Status</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var student in Model)
+                                {
+                                    <tr>
+
+                                        <td>@student.firstName</td>
+                                        <td>@student.lastName</td>
+                                        <td>@student.gender</td>
+                                        <td>@student.dateOfBirth</td>
+                                        <td>@student.phone</td>
+                                        <td>@student.email</td>
+                                        <td>@student.gpa</td>
+                                        <td>@student.registrationDate</td>
+                                        <td>@student.registrationStatus</td>
+                                        <td>@student.Department.name</td>
+                                        <td>
+                                            <a href="/Student/Edit/@student.id"><i class="fa-solid fa-pen-to-square mr-3"></i></a>
+                                            <a href="/Student/Remove/@student.id"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Gender</th>
+                                    <th>Date of Birth</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>GPA</th>
+                                    <th>Registration Date</th>
+                                    <th>Registration Status</th>
+                                    <th>Department</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "InsCourseGradeList";
+}
+
+@section title { Course's Grades Panel }
+@section breadcrumb{ <a href="/Course/InsCourseGradeList">Course's Grades List Panel</a>}
+
+@model List<StundetInformation.Models.StudentGrade>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        @if (Model.Count > 0) {
+                            int courseId = (int)Model[0].courseID;
+                            StudentInformationContext db = new StudentInformationContext();
+                            var course = db.Course.FirstOrDefault(x => x.id == courseId);
+                            var courseName = course.courseName;
+                            <h3 class="float-left">Enrolled students to @courseName</h3>
+                        }
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="coursesList" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Grade</th>
+                                    <th>Grade Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var grade in Model)
+                                {
+                                    <tr>
+                                        <td>@grade.Student.firstName @grade.Student.lastName</td>
+                                        <td>@grade.gradeValue</td>
+                                        <td>@grade.gradeWeight</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Grade</th>
+                                    <th>Grade Weight</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+

@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Grades Panel";
+}
+
+@section title { Grades Panel }
+@section breadcrumb{ <a href="/StudentGrade/Index">GradesPanel</a>}
+
+@model List<StundetInformation.Models.StudentGrade>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body m-auto">
+                        <div class="row">
+                            <div class="col-6">
+                                @using (Html.BeginForm("ListByCourse", "StudentGrade", FormMethod.Post))
+                                {
+                                    <div class="card-body">
+                                        <div class="form-group m-auto">
+                                            <label for="exampleInputEmail1">Course</label>
+                                            @Html.DropDownList("courseID", ViewBag.CourseList as SelectList, "Select", new { @class = "custom-select" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="card-footer m-auto">
+                                        <button type="submit" class="btn btn-primary" id="studFormSubmit">List Grades By Course</button>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-6">
+                                @using (Html.BeginForm("ListByStudent", "StudentGrade", FormMethod.Post))
+                                {
+                                    <div class="card-body">
+                                        <div class="form-group m-auto">
+                                            <label for="exampleInputEmail1">Student</label>
+                                            @Html.DropDownList("studentID", ViewBag.StudentList as SelectList, "Select", new { @class = "custom-select" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="card-footer ">
+                                        <button type="submit" class="btn btn-primary" id="studFormSubmit">List Grades By Student</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+

@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Authorization";
+}
+
+@section title { Authorizations }
+@section breadcrumb{ <a href="/User/Authorization">Authorizations</a>}
+
+@model List<StundetInformation.Models.Authorizations>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="btn btn-primary float-right" href="/User/AddAuthorization" role="button">Add Authorization</a>
+                        <a class="btn btn-primary float-right mr-3" href="/User/AuthorizationType" role="button">Set Authorization Type</a>
+                    </div>
+                    <div class="card-body">
+                        <table id="authorizationList" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Authorization Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var auth in Model)
+                                {
+                                    <tr>
+                                        <td>@auth.User.firstName @auth.User.lastName</td>
+                                        <td>@auth.AuthorizationType.type</td>
+                                        <td>
+                                            <a href="/User/RemoveAuthorization/@auth.id"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Authorization Type</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

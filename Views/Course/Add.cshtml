@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Add";
+}
+
+@section title { Add Course }
+@section breadcrumb{ <a href="/Course/Add">Add</a>}
+
+@model StundetInformation.Models.Course
+<!-- general form elements -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    @using (Html.BeginForm("Add", "Course", FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Course Code</label>
+                <input type="text" class="form-control" name="courseCode" placeholder="Enter course's code">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Course Name</label>
+                <input type="text" class="form-control" name="courseName" placeholder="Enter course's name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Description</label>
+                <input type="text" class="form-control" name="description" placeholder="Enter course's description">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">ECTS</label>
+                <input type="number" class="form-control" name="ects" placeholder="Enter course's ECTS">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Weekly Hours</label>
+                <input type="number" class="form-control" name="weeklyHours" placeholder="Enter course's weekly hours">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Instructor</label>
+                @Html.DropDownList("instructorId", ViewBag.InstructorList as SelectList, "Select", new { @class = "custom-select" })
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Semester</label>
+                @Html.DropDownList("semesterID", ViewBag.SemesterList as SelectList, "Select", new { @class = "custom-select" })
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>Student's Faculty</label>
+                        @Html.DropDownList("faculties", ViewBag.Faculty as SelectList, "Select", new { @class = "custom-select" })
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>Student's Department</label>
+                        @Html.DropDownList("departmentID", Enumerable.Empty<SelectListItem>(), "Select", new { @class = "custom-select" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" id="studFormSubmit">Submit</button>
+        </div>
+    }
+
+</div>
+<!-- /.card -->
+
+@section js {
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function() {
+            $('#faculties').change(function () {
+
+                var fID = $(this).val();
+                $('#departmentID').empty();
+
+                if (fID != null && fID != '') {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetDepartments", "Course")',
+                        data: { id: fID },
+                        success: function (departments) {
+                            $.each(departments, function (index, department) {
+                                $('#departmentID').append($('<option/>', {
+                                    value: department.id,
+                                    text: department.name
+                                }));
+                            });
+                        },
+                        error: function () {
+                            /*Bu metod ile Ajax işlemi başarısız
+                            olursa eğer hata mesajı verebiliyoruz.*/
+                            alert("Hata");
+                        },
+                        beforeSend: function () {
+                            /*Burada ise Form Post edilmeden önce
+                            işlemler yapılabilir.Örnek olarak Loading, yükleniyor vs..*/
+                        },
+                        complete: function () {
+                            /*Burada ise Form Post edildikten sonra
+                            işlemler yapılabilir.Örnek olarak yükleme tamamlandı vs..*/
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
